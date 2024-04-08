@@ -1,6 +1,6 @@
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='static/bootstrap/css/bootstrap.min.css') }}">
-    <script src="{{ url_for('static', filename='static/bootstrap/js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='/bootstrap/js/bootstrap.min.js') }}"></script>
     </head>
 <style>
     table {
@@ -11,19 +11,26 @@
         padding: 10px;
     }
 </style>
+<div class="container">
 <form method="POST">
     <label for="player_number">Spieler/Gruppen Nummer:</label>
-    <input type="text" id="player_number" name="player_number" required>
-    <label for="red_pearls">Rote Perlen:</label>
-    <input type="number" id="red_pearls" name="red_pearls" value="0">
-    <label for="green_pearls">Grüne Perlen:</label>
-    <input type="number" id="green_pearls" name="green_pearls" value="0">
-    <label for="blue_pearls">Blaue Perlen:</label>
-    <input type="number" id="blue_pearls" name="blue_pearls" value="0">
-    <input type="submit" value="Update Pearls">
+    <div>
+        <input type="text" class="form-control" placeholder="Spieler/Gruppennummer" id="player_number" name="player_number" required>
+    </div>
+    
+    <div class="input-group mb-3">
+        <!-- <label for="red_pearls">Rote Perlen:</label> -->
+        <span class="input-group-text" id="basic-addon3">Rote Perlen:</span>
+        <input type="number" class="form-control" aria-describedby="basic-addon3" id="red_pearls" name="red_pearls" value="0">
+        <span class="input-group-text" id="basic-addon3">Grüne Perlen:</span>
+        <input type="number" class="form-control" aria-describedby="basic-addon3" id="green_pearls" name="green_pearls" value="0">
+        <span class="input-group-text" id="basic-addon3">Blaue Perlen:</span>
+        <input type="number" class="form-control" aria-describedby="basic-addon3" id="blue_pearls" name="blue_pearls" value="0">
+        <input type="submit" class="btn btn-primary" value="Update Pearls">
+    </div>
 </form>
 
-<table>
+<table class="table table-striped">
     <tr>
         <th>Spieler/Gruppen Nummer:</th>
         <th>Rote Perlen:</th>
@@ -43,4 +50,5 @@
 </table>
 
 <a href="/"><button>Startseite</button></a>
-<a href="/end_game"><button>Go to End Game</button></a>
+<a href="/end_game"><button>Schlusswertung</button></a>
+</div>

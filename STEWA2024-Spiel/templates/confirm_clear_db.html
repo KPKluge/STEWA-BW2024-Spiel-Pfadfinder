@@ -3,14 +3,16 @@
 <html>
 <head>
     <title>Confirm Clear Database</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='static/bootstrap/css/bootstrap.min.css') }}">
-    <script src="{{ url_for('static', filename='static/bootstrap/js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='/bootstrap/js/bootstrap.min.js') }}"></script>
 </head>
 <body>
-    <h1>Bist du sicher, dass du alle Spieler/Gruppen löschen willst?</h1>
-    <form method="POST">
-        <input type="submit" value="Ja, lösche alle Spieler/Gruppen">
-    </form>
-    <a href="/"><button>Nein</button></a>
+    <div class="container">
+        <h1>Bist du sicher, dass du alle Spieler/Gruppen löschen willst?</h1>
+        <form method="POST">
+            <input type="submit" value="Ja, lösche alle Spieler/Gruppen">
+        </form>
+        <a href="/"><button>Nein</button></a>
+</div>
 </body>
 </html>

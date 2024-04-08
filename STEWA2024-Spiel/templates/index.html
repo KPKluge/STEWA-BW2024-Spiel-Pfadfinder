@@ -1,13 +1,17 @@
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='static/bootstrap/css/bootstrap.min.css') }}">
-    <script src="{{ url_for('static', filename='static/bootstrap/js/bootstrap.min.js') }}"></script>
-    </head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='/bootstrap/js/bootstrap.min.js') }}"></script>
+</head>
+
+<div class="container">
 <form method="POST" action="/player">
     <label for="number">Spieler/Gruppen Nummer</label><br>
-    <input type="number" id="number" name="number" required><br>
-    <input type="submit" value="Absenden">
+    <div class="input-group mb-3">
+        <input class="form-control" placeholder="Spieler/Gruppennummer" type="number" id="number" name="number" required><br>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Absenden">
 </form>
-<table style="width:100%; border: 1px solid black;">
+<table style="width:100%; border: 1px solid black;" class="table table-striped">
     <tr>
         <th style="border: 1px solid black;">Spieler/Gruppen Nummer</th>
         <th style="border: 1px solid black;">Abgabezeit</th>
@@ -23,3 +27,4 @@
 <a href="/pearls"><button>Perleneingabe</button></a>
 <a href="/end_game"><button>Schlusswertung</button></a>
 <a href="/clear_db"><button>Delete Database</button></a>
+</div>
