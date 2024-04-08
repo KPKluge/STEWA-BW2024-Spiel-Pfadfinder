@@ -74,20 +74,21 @@ def pearls():
 # Route zum Beenden des Spiels und Berechnen der Punkte
 @app.route('/end_game', methods=['GET', 'POST'])
 def end_game():
-    end_time = datetime.combine(datetime.today(), time())  # Set end_time to the start of today as a default value
+    end_time = datetime.combine(datetime.today(), time())  # Standardwert für die Endzeit ist die aktuelle Uhrzeit
     if request.method == 'POST':
         end_time_str = request.form.get('end_time')
         end_time = datetime.strptime(end_time_str, '%H:%M')
-        end_time = end_time.replace(year=datetime.today().year, month=datetime.today().month, day=datetime.today().day)
+        end_time = end_time.replace(year=datetime.today().year, month=datetime.today().month, day=datetime.today().day) # Setzt das Datum der Endzeit auf den heutigen Tag, da Default 01.01.1900 ist
 
+        # Berechnung der Punkte für jeden Spieler/Gruppe
         players = Player.query.all()
         for player in players:
-            player.score = (player.red_pearls + player.green_pearls + player.blue_pearls) * 5
-            player.score += min(player.red_pearls, player.green_pearls, player.blue_pearls) * 10
-            late_minutes = int((player.timestamp - end_time).total_seconds() / 60)
+            player.score = (player.red_pearls + player.green_pearls + player.blue_pearls) * 5   # 5 Punkte pro Perle
+            player.score += min(player.red_pearls, player.green_pearls, player.blue_pearls) * 10    # 10 Bonuspunkte für jede Perle in allen Farben
+            late_minutes = int((player.timestamp - end_time).total_seconds() / 60)  # Berechnet die Verspätung in Minuten
             player.late_minutes = late_minutes
             if late_minutes > 0:
-                player.score -= late_minutes * 5
+                player.score -= late_minutes * 5    # 5 Punkte Abzug pro Minute Verspätung 
         db.session.commit()
     return render_template('end_game.html', players=Player.query.all(), end_time=end_time)
 
