@@ -12,24 +12,24 @@
     }
 </style>
 <form method="POST">
-    <label for="player_number">Player Number:</label>
+    <label for="player_number">Spieler/Gruppen Nummer:</label>
     <input type="text" id="player_number" name="player_number" required>
-    <label for="red_pearls">Red Pearls:</label>
+    <label for="red_pearls">Rote Perlen:</label>
     <input type="number" id="red_pearls" name="red_pearls" value="0">
-    <label for="green_pearls">Green Pearls:</label>
+    <label for="green_pearls">Grüne Perlen:</label>
     <input type="number" id="green_pearls" name="green_pearls" value="0">
-    <label for="blue_pearls">Blue Pearls:</label>
+    <label for="blue_pearls">Blaue Perlen:</label>
     <input type="number" id="blue_pearls" name="blue_pearls" value="0">
     <input type="submit" value="Update Pearls">
 </form>
 
 <table>
     <tr>
-        <th>Player Number</th>
-        <th>Red Pearls</th>
-        <th>Green Pearls</th>
-        <th>Blue Pearls</th>
-        <th>Submission Time</th>
+        <th>Spieler/Gruppen Nummer:</th>
+        <th>Rote Perlen:</th>
+        <th>Grüne Perlen:</th>
+        <th>Blaue Perlen:</th>
+        <th>Abgabezeit</th>
     </tr>
     {% for player in players %}
         <tr>
@@ -42,5 +42,5 @@
     {% endfor %}
 </table>
 
-<a href="/"><button>Go to Home</button></a>
+<a href="/"><button>Startseite</button></a>
 <a href="/end_game"><button>Go to End Game</button></a>
