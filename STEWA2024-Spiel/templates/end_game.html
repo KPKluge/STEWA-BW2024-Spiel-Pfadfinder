@@ -1,0 +1,41 @@
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+</style>
+<h1>End Time: {{ end_time.strftime('%H:%M') }}</h1>
+<form method="POST">
+    <label for="end_time">End Time:</label>
+    <input type="time" id="end_time" name="end_time" required>
+    <input type="submit" value="End Game">
+</form>
+
+{% if players %}
+    <table>
+        <tr>
+            <th>Player Number</th>
+            <th>Red Pearls</th>
+            <th>Green Pearls</th>
+            <th>Blue Pearls</th>
+            <th>Submission Time</th>
+            <th>Score</th>
+        </tr>
+        {% for player in players %}
+            <tr>
+                <td>{{ player.number }}</td>
+                <td>{{ player.red_pearls }}</td>
+                <td>{{ player.green_pearls }}</td>
+                <td>{{ player.blue_pearls }}</td>
+                <td>{{ player.timestamp.strftime('%H:%M') }}</td>
+                <td>{{ player.score }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+<a href="/"><button>Go to Home</button></a>
+<a href="/pearls"><button>Go to Pearls</button></a>

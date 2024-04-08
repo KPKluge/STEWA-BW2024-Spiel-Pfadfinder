@@ -1,0 +1,42 @@
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+</style>
+<form method="POST">
+    <label for="player_number">Player Number:</label>
+    <input type="text" id="player_number" name="player_number" required>
+    <label for="red_pearls">Red Pearls:</label>
+    <input type="number" id="red_pearls" name="red_pearls" value="0">
+    <label for="green_pearls">Green Pearls:</label>
+    <input type="number" id="green_pearls" name="green_pearls" value="0">
+    <label for="blue_pearls">Blue Pearls:</label>
+    <input type="number" id="blue_pearls" name="blue_pearls" value="0">
+    <input type="submit" value="Update Pearls">
+</form>
+
+<table>
+    <tr>
+        <th>Player Number</th>
+        <th>Red Pearls</th>
+        <th>Green Pearls</th>
+        <th>Blue Pearls</th>
+        <th>Submission Time</th>
+    </tr>
+    {% for player in players %}
+        <tr>
+            <td>{{ player.number }}</td>
+            <td>{{ player.red_pearls }}</td>
+            <td>{{ player.green_pearls }}</td>
+            <td>{{ player.blue_pearls }}</td>
+            <td>{{ player.timestamp }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<a href="/"><button>Go to Home</button></a>
+<a href="/end_game"><button>Go to End Game</button></a>
