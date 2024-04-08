@@ -7,9 +7,9 @@
         padding: 10px;
     }
 </style>
-<h1>End Time: {{ end_time.strftime('%H:%M') }}</h1>
+<h1>Spiel Ende: {{ end_time.strftime('%H:%M') }}</h1>
 <form method="POST">
-    <label for="end_time">End Time:</label>
+    <label for="end_time">Spiel Ende:</label>
     <input type="time" id="end_time" name="end_time" required>
     <input type="submit" value="End Game">
 </form>
@@ -17,12 +17,12 @@
 {% if players %}
     <table>
         <tr>
-            <th>Player Number</th>
-            <th>Red Pearls</th>
-            <th>Green Pearls</th>
-            <th>Blue Pearls</th>
-            <th>Submission Time</th>
-            <th>Score</th>
+            <th>Spieler/Gruppen Nummer</th>
+            <th>Rote Perlen</th>
+            <th>Grüne Perlen</th>
+            <th>Blaue Perlen</th>
+            <th>Abgabe Zeit</th>
+            <th>Punkte</th>
         </tr>
         {% for player in players %}
             <tr>
@@ -37,5 +37,5 @@
     </table>
 {% endif %}
 
-<a href="/"><button>Go to Home</button></a>
-<a href="/pearls"><button>Go to Pearls</button></a>
+<a href="/"><button>Startseite</button></a>
+<a href="/pearls"><button>Perleneingabe</button></a>

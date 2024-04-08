@@ -1,16 +1,18 @@
 from flask import Flask, request, redirect, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime, time
+from datetime import datetime, time, timezone
 
-
+# Initialisierung der Flask-App und der Datenbank
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///players.db'
 db = SQLAlchemy(app)
 
+# Funktion, die die aktuelle Zeit zurückgibt und dabei die Sekunden und Mikrosekunden auf 0 setzt
 def current_time():
     now = datetime.now()
     return now.replace(second=0, microsecond=0)
 
+# Datenbank-Modell für die Spieler/Gruppen
 class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, nullable=False)
@@ -19,13 +21,13 @@ class Player(db.Model):
     green_pearls = db.Column(db.Integer, default=0)
     blue_pearls = db.Column(db.Integer, default=0)
 
+# Route für die Startseite, die alle Spieler/Gruppen anzeigt und die Möglichkeit bietet, neue Spieler/Gruppen hinzuzufügen
 @app.route('/', methods=['GET'])
 def index():
     players = Player.query.order_by(Player.timestamp).all()
     return render_template('index.html', players=players)
 
-from flask import Flask, request, redirect, url_for
-
+# Route für das Hinzufügen eines neuen Spielers/einer neuen Gruppe
 @app.route('/player', methods=['GET', 'POST'])
 def add_player():
     if request.method == 'POST':
@@ -37,6 +39,7 @@ def add_player():
     else:
         return redirect(url_for('index'))
 
+# Route um die Perlen eines Spielers/Gruppe zu aktualisieren
 @app.route('/pearls', methods=['GET', 'POST'])
 def update_pearls():
     if request.method == 'POST':
@@ -60,6 +63,7 @@ def update_pearls():
             player.timestamp = player.timestamp.strftime('%H:%M')
         return render_template('pearls.html', players=players)
 
+# Route zum Darstellen der Spieler/Gruppen und ihrer Perlen
 @app.route('/pearls', methods=['GET', 'POST'])
 def pearls():
     players = Player.query.order_by(Player.timestamp).all()
@@ -67,8 +71,7 @@ def pearls():
         player.timestamp = datetime.strptime(player.timestamp, '%H:%M.%f')  # Convert string to datetime
     return render_template('pearls.html', players=players)
 
-from datetime import timezone
-
+# Route zum Beenden des Spiels und Berechnen der Punkte
 @app.route('/end_game', methods=['GET', 'POST'])
 def end_game():
     end_time = datetime.combine(datetime.today(), time())  # Set end_time to the start of today as a default value
@@ -88,6 +91,7 @@ def end_game():
         db.session.commit()
     return render_template('end_game.html', players=Player.query.all(), end_time=end_time)
 
+# Route zum Löschen aller Spieler/Gruppen
 @app.route('/clear_db', methods=['GET', 'POST'])
 def clear_db():
     if request.method == 'POST':
@@ -96,13 +100,9 @@ def clear_db():
         return "Database cleared"
     return render_template('confirm_clear_db.html')
 
+# Starten der Flask-App
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True)
 
-# if __name__ == '__main__':
-#     with app.app_context():
-#         db.drop_all()  # Löscht alle Tabellen
-#         db.create_all()  # Erstellt alle Tabellen neu
-#     app.run(debug=True)
